@@ -6,3 +6,6 @@ services:
     ports:
       - 80:80
       - 443:443
+  wordpress:
+    build: requirements/wordpress/
+    container_name: wordpress
