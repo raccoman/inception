@@ -14,7 +14,7 @@ else
 
 	# init database
 	echo 'Initializing database'
-	mysql_install_db --user=mysql > /dev/null
+	mysql_install_db --basedir=/usr --datadir=/var/lib/mysql --user=mysql --rpm > /dev/null
 	echo 'Database initialized'
 
 	echo "[i] MySql root password: $MYSQL_ROOT_PASSWORD"
@@ -30,7 +30,6 @@ else
 	cat << EOF > $tfile
 USE mysql;
 FLUSH PRIVILEGES;
-DELETE FROM mysql.user;
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD' WITH GRANT OPTION;
 EOF
 

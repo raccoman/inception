@@ -9,5 +9,4 @@ ENV MYSQL_USER admin
 ENV MYSQL_PASSWORD admin
 
 COPY tools/configure.sh configure.sh
-# Vietato nel subject
-ENTRYPOINT ["./configure.sh"]
+CMD ["sh", "configure.sh"]

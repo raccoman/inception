@@ -4,11 +4,21 @@ services:
     build: requirements/nginx/
     container_name: nginx
     ports:
-      - 80:80
-      - 443:443
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "~/Desktop/inception/www:/var/www/raccoman"
   wordpress:
     build: requirements/wordpress/
     container_name: wordpress
+    ports:
+      - "9000:9000"
+    volumes:
+      - "~/Desktop/inception/www:/var/www/raccoman"
   mariadb:
     build: requirements/mariadb/
     container_name: mariadb
+    ports:
+      - "3306:3306"
+    volumes:
+      - "~/Desktop/inception/mariadb:/var/lib/mysql"
