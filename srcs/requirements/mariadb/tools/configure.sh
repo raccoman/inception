@@ -26,27 +26,22 @@ else
 	cat << EOF > $tfile
 USE mysql;
 FLUSH PRIVILEGES;
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PWD' WITH GRANT OPTION;
+CREATE DATABASE IF NOT EXISTS $WP_DATABASE_NAME CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE USER '$WP_DATABASE_USR'@'%' IDENTIFIED BY '$WP_DATABASE_PWD';
+GRANT ALL PRIVILEGES ON *.* TO '$WP_DATABASE_USR'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PWD';
 EOF
-
-	# MySQL queries
-	# echo "[i] Updating root password"
-	# echo "USE mysql;" >> $tfile
-	# echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PWD' WITH GRANT OPTION;" >> $tfile
-
-	echo "[i] Creating database: $WP_DATABASE_NAME"
-	echo "CREATE DATABASE IF NOT EXISTS \`$WP_DATABASE_NAME\` CHARACTER SET utf8 COLLATE utf8_general_ci;" >> $tfile
-
-	echo "[i] Creating user: $WP_DATABASE_USR with password $WP_DATABASE_PWD"
-	echo "GRANT ALL ON \`$WP_DATABASE_NAME\`.* to '$WP_DATABASE_USR'@'%' IDENTIFIED BY '$WP_DATABASE_PWD';" >> $tfile
-
-	echo "FLUSH PRIVILEGES;" >> $tfile
 
 	# run sql in tempfile
 	echo "[i] Executing queries: $tfile"
 	/usr/bin/mysqld --user=mysql --bootstrap --verbose=0 < $tfile
 	rm -f $tfile
 fi
+
+# allow remote connections
+sed -i "s|.*bind-address\s*=.*|bind-address=0.0.0.0|g" /etc/mysql/my.cnf
+sed -i "s|.*bind-address\s*=.*|bind-address=0.0.0.0|g" /etc/my.cnf.d/mariadb-server.cnf
 
 echo "[i] Starting mariadb server"
 exec /usr/bin/mysqld --user=mysql --console
