@@ -20,22 +20,12 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'wordpress' );
-
-/** MySQL database username */
-define( 'DB_USER', 'fraccoman' );
-
-/** MySQL database password */
-define( 'DB_PASSWORD', 'sonoscemo' );
-
-/** MySQL hostname */
-define( 'DB_HOST', 'mariadb' );
-
-/** Database Charset to use in creating database tables. */
-define( 'DB_CHARSET', 'utf8' );
-
-/** The Database Collate type. Don't change this if in doubt. */
-define( 'DB_COLLATE', 'utf8_general_ci' );
+define( 'DB_NAME',		'wordpress'	);
+define( 'DB_USER',		'fraccoman'	);
+define( 'DB_PASSWORD',	'sonoscemo'	);
+define( 'DB_HOST',		'mariadb:3306'				);
+define( 'DB_CHARSET',	'utf8'						);
+define( 'DB_COLLATE',	'utf8_general_ci'			);
 
 /**#@+
  * Authentication Unique Keys and Salts.
@@ -46,15 +36,6 @@ define( 'DB_COLLATE', 'utf8_general_ci' );
  *
  * @since 2.6.0
  */
-
-// define( 'AUTH_KEY',         'put your unique phrase here' );
-// define( 'SECURE_AUTH_KEY',  'put your unique phrase here' );
-// define( 'LOGGED_IN_KEY',    'put your unique phrase here' );
-// define( 'NONCE_KEY',        'put your unique phrase here' );
-// define( 'AUTH_SALT',        'put your unique phrase here' );
-// define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
-// define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
-// define( 'NONCE_SALT',       'put your unique phrase here' );
 
 define('AUTH_KEY',         'E:cb^}PpuWesa>jYY%yQZua%CU |H*!0<.PV#/7+RB)Zgzr+x9L&b7q,>+#un-b<');
 define('SECURE_AUTH_KEY',  'um+XKiem7x/P7-vbt2w# Dc[7c-E;^Gx eJf5BGN31xge,6z^w+Tv+Qkx.2Q!qJG');

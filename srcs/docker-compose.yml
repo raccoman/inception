@@ -13,7 +13,7 @@ services:
       - wordpress
       - mariadb
     networks:
-      - inception
+      - default
 
   wordpress:
     build: requirements/wordpress/
@@ -25,7 +25,7 @@ services:
     depends_on:
       - mariadb
     networks:
-      - inception
+      - default
     environment:
       MYSQL_HOST: ${MYSQL_HOST}
       WP_DATABASE_NAME: ${WP_DATABASE_NAME}
@@ -40,7 +40,7 @@ services:
     volumes:
       - "~/Desktop/inception/mariadb:/var/lib/mysql"
     networks:
-      - inception
+      - default
     environment:
       MYSQL_ROOT_PWD: ${MYSQL_ROOT_PWD}
       WP_DATABASE_NAME: ${WP_DATABASE_NAME}
@@ -49,5 +49,5 @@ services:
     
 
 networks:
-  inception:
-    driver: bridge
+  default:
+    name: inception_network
