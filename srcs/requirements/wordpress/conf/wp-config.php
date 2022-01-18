@@ -20,10 +20,10 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME',		'wordpress'	);
-define( 'DB_USER',		'fraccoman'	);
-define( 'DB_PASSWORD',	'sonoscemo'	);
-define( 'DB_HOST',		'mariadb:3306'				);
+define( 'DB_NAME',		getenv('WP_DATABASE_NAME')	);
+define( 'DB_USER',		getenv('WP_DATABASE_USR')	);
+define( 'DB_PASSWORD',	getenv('WP_DATABASE_PWD')	);
+define( 'DB_HOST',		getenv('MYSQL_HOST')		);
 define( 'DB_CHARSET',	'utf8'						);
 define( 'DB_COLLATE',	'utf8_general_ci'			);
 
