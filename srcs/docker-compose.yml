@@ -24,6 +24,7 @@ services:
       - "~/Desktop/inception:/var/www/html"
     depends_on:
       - mariadb
+      - redis
     networks:
       - frontend
       - backend
@@ -41,6 +42,8 @@ services:
       WP_USR:           ${WP_USR}
       WP_PWD:           ${WP_PWD}
       WP_EMAIL:         ${WP_EMAIL}
+      REDIS_HOST:       ${REDIS_HOST}
+      REDIS_PWD:        ${REDIS_PWD}
 
   mariadb:
     build: requirements/mariadb/
@@ -58,6 +61,30 @@ services:
       WP_DATABASE_USR:  ${WP_DATABASE_USR}
       WP_DATABASE_PWD:  ${WP_DATABASE_PWD}
     
+  redis:
+    build: requirements/bonus/redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+    restart: always
+    environment:
+      REDIS_PWD: ${REDIS_PWD}
+
+  ftp-server:
+    build: requirements/bonus/ftp
+    container_name: ftp-server
+    ports:
+      - "20:20"
+    volumes:
+      - "~/Desktop/inception/wordpress:/var/www/html/wordpress"
+    networks:
+      - backend
+    restart: always
+    environment:
+      FTP_USR: ${FTP_USR}
+      FTP_PWD: ${FTP_PWD}
 
 networks:
   frontend:

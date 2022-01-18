@@ -11,7 +11,8 @@ RUN	apk update && apk upgrade && apk add --no-cache \
 		php7-pecl-mailparse	\
 		wget				\
         tar                 \
-		mariadb-client		
+		mariadb-client		\
+		redis		
 
 # php config
 RUN	adduser -S nginx &&	addgroup -S nginx
