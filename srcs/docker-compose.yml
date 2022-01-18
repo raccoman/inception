@@ -11,9 +11,9 @@ services:
       - "~/Desktop/inception:/var/www/html"
     depends_on:
       - wordpress
-      - mariadb
     networks:
-      - default
+      - frontend
+    restart: always
 
   wordpress:
     build: requirements/wordpress/
@@ -25,12 +25,22 @@ services:
     depends_on:
       - mariadb
     networks:
-      - default
+      - frontend
+      - backend
+    restart: always
     environment:
-      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_HOST:       ${MYSQL_HOST}
       WP_DATABASE_NAME: ${WP_DATABASE_NAME}
-      WP_DATABASE_USR: ${WP_DATABASE_USR}
-      WP_DATABASE_PWD: ${WP_DATABASE_PWD}
+      WP_DATABASE_USR:  ${WP_DATABASE_USR}
+      WP_DATABASE_PWD:  ${WP_DATABASE_PWD}
+      DOMAIN_NAME:      ${DOMAIN_NAME}
+      WP_TITLE:         ${WP_TITLE}
+      WP_ADMIN_USR:     ${WP_ADMIN_USR}
+      WP_ADMIN_PWD:     ${WP_ADMIN_PWD}
+      WP_ADMIN_EMAIL:   ${WP_ADMIN_EMAIL}
+      WP_USR:           ${WP_USR}
+      WP_PWD:           ${WP_PWD}
+      WP_EMAIL:         ${WP_EMAIL}
 
   mariadb:
     build: requirements/mariadb/
@@ -40,14 +50,15 @@ services:
     volumes:
       - "~/Desktop/inception/mariadb:/var/lib/mysql"
     networks:
-      - default
+      - backend
+    restart: always
     environment:
-      MYSQL_ROOT_PWD: ${MYSQL_ROOT_PWD}
+      MYSQL_ROOT_PWD:   ${MYSQL_ROOT_PWD}
       WP_DATABASE_NAME: ${WP_DATABASE_NAME}
-      WP_DATABASE_USR: ${WP_DATABASE_USR}
-      WP_DATABASE_PWD: ${WP_DATABASE_PWD}
+      WP_DATABASE_USR:  ${WP_DATABASE_USR}
+      WP_DATABASE_PWD:  ${WP_DATABASE_PWD}
     
 
 networks:
-  default:
-    name: inception_network
+  frontend:
+  backend:
