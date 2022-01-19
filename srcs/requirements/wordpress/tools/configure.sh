@@ -5,7 +5,10 @@ while ! mariadb -h$MYSQL_HOST -u$WP_DATABASE_USR -p$WP_DATABASE_PWD $WP_DATABASE
     sleep 3
 done
 
-if [ ! -f "/var/www/html/wordpress/index.php" ]; then
+if [ ! -f "/var/www/html/index.php" ]; then
+
+    mv /tmp/adminer.php /var/www/html/
+    mv /tmp/adminer.css /var/www/html/
 
     wp core download
     wp config create --dbname=$WP_DATABASE_NAME --dbuser=$WP_DATABASE_USR --dbpass=$WP_DATABASE_PWD --dbhost=$MYSQL_HOST --dbcharset="utf8" --dbcollate="utf8_general_ci"
@@ -28,5 +31,5 @@ fi
 
 wp redis enable
 
-echo "Wordpress listesting on :9000"
+echo "Wordpress started on :9000"
 /usr/sbin/php-fpm7 -F -R

@@ -8,7 +8,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - "~/Desktop/inception:/var/www/html"
+      - "~/Desktop/inception/website:/var/www/html"
     depends_on:
       - wordpress
     networks:
@@ -21,7 +21,7 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - "~/Desktop/inception:/var/www/html"
+      - "~/Desktop/inception/website:/var/www/html"
     depends_on:
       - mariadb
       - redis
@@ -73,12 +73,13 @@ services:
       REDIS_PWD: ${REDIS_PWD}
 
   ftp-server:
-    build: requirements/bonus/ftp
+    build: requirements/bonus/ftp-server
     container_name: ftp-server
     ports:
-      - "20:20"
+      - "21:21"
+#      - "40000-50000:40000-50000"
     volumes:
-      - "~/Desktop/inception/wordpress:/var/www/html/wordpress"
+      - "~/Desktop/inception/website:/var/www/html/"
     networks:
       - backend
     restart: always
