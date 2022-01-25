@@ -1,6 +1,6 @@
 NAME = inception
 
-all: purge reload
+all: prune reload
 
 linux:
 	@ echo "127.0.0.1 raccoman.42.fr" >> /etc/hosts
